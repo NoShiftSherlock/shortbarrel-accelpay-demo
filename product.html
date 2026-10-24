@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shortbarrel</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body class="store">
+<div class="announce"><a href="index.html#shop">SIGN UP FOR THE SHORTLIST</a></div>
+<header>
+  <div class="hdr">
+    <a href="index.html"><img class="logo" src="assets/logo.png" alt="Shortbarrel"></a>
+    <button class="burger" id="burger" aria-label="Menu">&#9776;</button>
+    <nav class="main">
+      <a href="index.html#shop">Shop</a>
+      <a href="index.html#shop">Core Releases</a>
+      <a href="index.html#shop">Limited Releases</a>
+      <a href="index.html#story">Our Story</a>
+      <a href="index.html#delivery">Find Us</a>
+    </nav>
+    <div class="hdr-actions">
+      <a class="icon-cart" href="#" data-cart-toggle aria-label="Cart">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h9.2a1 1 0 0 0 1-.8L20 8H6.2"/><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+        <span class="bubble" data-cart-count hidden>0</span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="band" style="padding-top:2rem">
+  <div class="pdp">
+    <div class="pdp-media"><img id="pdp-img" src="assets/prod-fourgrain.jpg" alt=""></div>
+    <div id="product-form" class="pdp-info" data-product="fourgrain"></div>
+  </div>
+  <section style="margin-top:3.5rem">
+    <div class="section-head"><h2 style="font-size:1.5rem">You may also like</h2></div>
+    <div class="grid" id="more-grid"></div>
+  </section>
+</main>
+<footer class="site">
+  <div class="ft">
+    <div>
+      <img src="assets/logo.png" alt="Shortbarrel" style="height:56px;width:auto">
+      <p style="font-size:.86rem;margin-top:1rem;max-width:24rem">Please enjoy responsibly. Not for sale to anyone under the legal purchase age for alcohol.</p>
+    </div>
+    <div><h4>Shop</h4><ul>
+      <li><a href="product.html?p=fourgrain">Shortbarrel Four Grain</a></li>
+      <li><a href="product.html?p=rye101">Shortbarrel Rye 101</a></li>
+      <li><a href="product.html?p=toasted">Shortbarrel Toasted</a></li>
+      <li><a href="product.html?p=doubleoak">Shortbarrel Double Oaked</a></li>
+      <li><a href="product.html?p=cigar4">Shortbarrel Cigar Batch IV</a></li></ul></div>
+    <div><h4>Help</h4><ul>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Shipping</a></li>
+      <li><a href="#">Privacy Policy</a></li></ul></div>
+    <div><h4>Checkout</h4><ul>
+      <li>Shopify checkout</li>
+      <li>Payments, taxes and retailer routing by AccelPay</li>
+      <li><a href="https://www.reservebar.com/search?q=shortbarrel" target="_blank" rel="noopener">Also on ReserveBar.com</a></li></ul></div>
+  </div>
+  <div class="legal-row">
+    Private sales demo prepared by AccelPay for Shortbarrel Bourbon. Not the live store and not affiliated with or endorsed by Shortbarrel Bourbon.
+    Shortbarrel marks, product images and copy belong to their owner; Gopuff, Shopify and ReserveBar marks belong to their owners. No orders are placed.
+  </div>
+</footer>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Shopping cart">
+  <header>
+    <h2>Your cart</h2>
+    <button class="x" id="drawer-close" aria-label="Close cart">&times;</button>
+  </header>
+  <div class="items" id="drawer-items"></div>
+  <div class="foot" id="drawer-foot"></div>
+</aside>
+<div class="ribbon">Private demo &middot; AccelPay for Shopify</div>
+<script>
+// ?p= picks the product (a Shopify product handle in the real store).
+(function () {
+  var p = new URLSearchParams(location.search).get('p') || 'fourgrain';
+  document.getElementById('product-form').setAttribute('data-product', p);
+})();
+</script>
+<script src="data.js?v=1"></script>
+<script src="app.js?v=1"></script>
+<script>
+(function () {
+  var S = window.DemoApp, c = S.catalog, cur = document.getElementById('product-form').getAttribute('data-product');
+  function card(id) {
+    var p = c[id], low = S.lowestPrice(id);
+    var price = p.sitePrice ? '$' + (p.sitePrice / 100).toFixed(2) : (low ? 'From $' + (low / 100).toFixed(2) : '');
+    return '<a class="card" href="product.html?p=' + id + '"><div class="shot"><img src="' + p.image + '" alt="' + p.name + '" loading="lazy"></div>' +
+      '<span class="varietal">' + p.type + '</span><h3>' + p.name + '</h3><span class="price">' + price + ' USD</span>' +
+      (p.soldOutOnSite && S.inNetwork(id) ? '<span class="tag">In stock at a network retailer</span>' : '') + '</a>';
+  }
+  if (c[cur]) { var im = document.getElementById('pdp-img'); im.src = c[cur].image; im.alt = c[cur].name; document.title = c[cur].name + ' | Shortbarrel'; }
+  document.getElementById('more-grid').innerHTML = ["fourgrain", "rye101", "toasted", "doubleoak", "cigar4", "solstice", "shortlist2", "fans1", "fans2", "honeygin"].filter(function (id) { return id !== cur; }).slice(0, 4).map(card).join('');
+})();
+</script>
+</body>
+</html>
